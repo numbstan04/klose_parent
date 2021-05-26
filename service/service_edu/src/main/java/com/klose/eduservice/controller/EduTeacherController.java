@@ -68,6 +68,7 @@ public class EduTeacherController {
         //记录总数
         long total = page.getTotal();
 
+        //int i = 1/0;
         //数据list集合
         List<EduTeacher> records = page.getRecords();
 
@@ -129,6 +130,24 @@ public class EduTeacherController {
     public R addTeacher(@RequestBody EduTeacher eduTeacher) {
         boolean save = eduTeacherService.save(eduTeacher);
         if (save) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
+    //根据讲师ID进行查询
+    @GetMapping("getTeacher/{id}")
+    public R getTeacher(@PathVariable String id) {
+        EduTeacher eduTeacher = eduTeacherService.getById(id);
+        return R.ok().data("teacher", eduTeacher);
+    }
+
+    //讲师修改功能
+    @PostMapping("updateTeacher")
+    public R updateTeacher(@RequestBody EduTeacher eduTeacher) {
+        boolean flag = eduTeacherService.updateById(eduTeacher);
+        if (flag) {
             return R.ok();
         }else{
             return R.error();
