@@ -32,6 +32,7 @@ import java.util.List;
 @Api(description = "讲师管理")
 @RestController
 @RequestMapping("/eduservice/edu-teacher")
+@CrossOrigin
 public class EduTeacherController {
 
     @Autowired
@@ -112,6 +113,9 @@ public class EduTeacherController {
             wrapper.le("gmt_create", end);
         }
 
+        //排序
+        wrapper.orderByDesc("gmt_create");
+
         //调用方法实现条件查询分页
         eduTeacherService.page(page, wrapper);
 
@@ -128,7 +132,7 @@ public class EduTeacherController {
     //添加讲师接口
     @PostMapping("addTeacher")
     public R addTeacher(@RequestBody EduTeacher eduTeacher) {
-        boolean save = eduTeacherService.save(eduTeacher);
+         boolean save = eduTeacherService.save(eduTeacher);
         if (save) {
             return R.ok();
         } else {
