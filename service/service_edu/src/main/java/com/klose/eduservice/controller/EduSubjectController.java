@@ -2,15 +2,14 @@ package com.klose.eduservice.controller;
 
 
 import com.klose.commonutils.R;
+import com.klose.eduservice.entity.subject.OneSubject;
 import com.klose.eduservice.service.EduSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 
 
 /**
@@ -22,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 2021-05-30
  */
 @RestController
-@RequestMapping("/eduservice/edu-subject")
+@RequestMapping("/eduservice/subject")
 @CrossOrigin
 public class EduSubjectController {
     @Autowired
@@ -33,8 +32,16 @@ public class EduSubjectController {
     @PostMapping("addSubject")
     public R addSubject(MultipartFile file) {
         //上传过来excel文件
-        subjectService.saveSubject(file,subjectService);
+        subjectService.saveSubject(file, subjectService);
         return R.ok();
+    }
+
+
+    //课程分类列表
+    @GetMapping("getAllSubject")
+    public R getAllSubject() {
+        List<OneSubject> list = subjectService.getAllOneTwoSubject();
+        return R.ok().data("list",list);
     }
 }
 
