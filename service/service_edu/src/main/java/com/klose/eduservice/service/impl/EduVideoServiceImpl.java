@@ -1,5 +1,7 @@
 package com.klose.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.klose.eduservice.entity.EduChapter;
 import com.klose.eduservice.entity.EduVideo;
 import com.klose.eduservice.mapper.EduVideoMapper;
 import com.klose.eduservice.service.EduVideoService;
@@ -16,5 +18,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EduVideoServiceImpl extends ServiceImpl<EduVideoMapper, EduVideo> implements EduVideoService {
+
 
 }

@@ -1,10 +1,11 @@
 package com.klose.eduservice.controller;
 
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import com.klose.commonutils.R;
+import com.klose.eduservice.entity.vo.CourseInfoVo;
+import com.klose.eduservice.service.EduCourseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -18,6 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/eduservice/course")
 @CrossOrigin
 public class EduCourseController {
+    @Autowired
+    private EduCourseService courseService;
 
+    //添加课程基本信息的方法
+    @PostMapping("addCourseInfo")
+    public R addCourceInfo(@RequestBody CourseInfoVo courseInfoVo) {
+        String id = courseService.saveCourseInfo(courseInfoVo);
+        return R.ok().data("courseId",id);
+    }
 }
 

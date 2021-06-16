@@ -2,6 +2,7 @@ package com.klose.eduservice.service;
 
 import com.klose.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.klose.eduservice.entity.vo.CourseInfoVo;
 
 /**
  * <p>
@@ -13,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EduCourseService extends IService<EduCourse> {
 
+    //添加课程基本信息的方法
+    String saveCourseInfo(CourseInfoVo courseInfoVo);
 }
