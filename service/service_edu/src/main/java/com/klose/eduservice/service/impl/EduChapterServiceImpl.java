@@ -9,6 +9,7 @@ import com.klose.eduservice.mapper.EduChapterMapper;
 import com.klose.eduservice.service.EduChapterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.klose.eduservice.service.EduVideoService;
+import com.klose.servicebase.exceptionHandler.SelfDefindExection;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,5 +71,30 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
 
         //遍历查询小节list集合，进行封装
         return finalList;
+    }
+
+    //删除章节的方法
+    @Override
+    public boolean deleteChapter(String chapterId) {
+        //根据chapterId章节Id查询小节表，如果查询到数据，不进行删除
+        QueryWrapper<EduVideo> wrapper = new QueryWrapper<>();
+        wrapper.eq("chapter_id", chapterId);
+        int count = VideoService.count(wrapper);
+        if (count > 0) {
+            //查询出小节，不进行删除
+            throw new SelfDefindExection(20001, "不能删除");
+        }else {
+            //没有查询出小节,进行删除
+            int result = baseMapper.deleteById(chapterId);
+
+            return result > 0;
+        }
+    }
+
+    @Override
+    public void removeChapterByCourseId(String courseId) {
+        QueryWrapper wrapper = new QueryWrapper<>();
+        wrapper.eq("course_id", courseId);
+        baseMapper.delete(wrapper);
     }
 }
